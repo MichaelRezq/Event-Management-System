@@ -1,0 +1,30 @@
+﻿@model IEnumerable<EMS.Models.Hotel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Hotels</h1>
+
+<p>
+    <a class="btn btn-info" asp-action="Create">Add New Hotel</a>
+</p>
+   <div class="d-flex justify-content-evenly align-content-center">
+@foreach (var item in Model) {
+            <div  class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <img src="~/images/hotel-sign-stars-3d-illustration-260nw-195879770.webp" class="img-fluid" >
+                    <a asp-action="Details" asp-route-id="@item.Id" class="card-title text-decoration-none text-primary d-block"> @Html.DisplayFor(modelItem => item.Name)</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+
+       
+}
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ConferenceRoom" asp-action="Index">ConferenceRoom</a>
+          
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RoomTimeSlot" asp-action="Index">RoomTimeSlot</a>
+        </div
+
+
