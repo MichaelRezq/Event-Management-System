@@ -3,79 +3,78 @@
 @{
     ViewData["Title"] = "Presenter Details";
 }
-
-<div class="container">
-
-
-    <div>
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <h1>Presenter Details</h1>
-            <div>
-                <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Item1?.Id">Edit Presenter Info</a> |
-                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+<section class="doc_blog_grid_area bg-disable">
+    <div class="blog_grid_inner bg_color">
+        <div class="container">
+            <div class="d-flex justify-content-between mb-35 flex-wrap">
+                <h2 class="section-title-h2 mb-0"></h2>
+                <div><a asp-controller="PresenterSector" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Sector</a></div>
             </div>
+
+            <ul class="nav blog_tab">
+            </ul>
         </div>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Item1.Name)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Item1.Name)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Item1.Mobile)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Item1.Mobile)
-            </dd>
-        </dl>
     </div>
-<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
-        <h4>Presenter Sectors</h4>
-        <a asp-controller="PresenterSector" class="btn btn-outline-primary" asp-action="Create">Add New Sector</a>
-</div>
+    <div class="container">
+        <div class="row blog_grid_tab">
 
-    <hr />
+            @foreach (var item in Model.Item2)
+            {
 
-    <div class="d-flex justify-content-evenly align-items-start flex-wrap gap-3">
-        @foreach (var item in Model.Item2)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <a asp-controller="PresenterSector" class="text-decoration-none " asp-action="Details" asp-route-id="@item.Id" class="card-title"> Sector:- @Html.DisplayFor(modelItem => item.Name)</a>
-                </div>
-                @foreach (var itemItem in Model.Item3)
-                {
-                    @if (itemItem.PresenterSectorId == item.Id)
-                    {
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p> Start Date </p>
-                                    <p>@Html.DisplayFor(modelItem => itemItem.StartTime)</p>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="blog_grid_post shadow-sm wow fadeInUp">
+                        <img src="img/blog-grid/blog_grid_post1.jpg" alt="">
+                        <div class="grid_post_content">
+
+                            <a asp-controller="PresenterSector" asp-action="Details" asp-route-id="@item.Id">
+                                <h4 class="b_title text-center text-capitalize">@item.Name</h4>
+                            </a>
+
+                            @foreach (var itemItem in Model.Item3)
+                            {
+                                @if (itemItem.PresenterSectorId == item.Id)
+                                {
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Start Time </a>
+                                        <a class="c_blue text-danger" asp-controller="PresenterTimeSlot" asp-action="Delete" asp-route-id="@item.Id"><i class="icon_trash"></i> </a>
+                                        <a class="c_blue"
+                                           asp-controller="PresenterTimeSlot" asp-action="Edit" asp-route-id="@item.Id"><i class="icon_pencil-edit"></i></a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => itemItem.StartTime) </a>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> End Time </a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => itemItem.EndTime) </a>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Occupied </a>
+
+                                        <a href="#"> @Html.DisplayFor(modelItem => itemItem.Occupied) </a>
+                                    </div>
+
+                                    <hr />
+                                }
+                            }
+
+                            <div class="media post_author">
+                                <div class="round_img">
+                                    <img src="img/blog-grid/author_1.jpg" alt="">
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p> End Date </p>
-                                    <span>@Html.DisplayFor(modelItem => itemItem.EndTime)</span>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <p> Occupied </p>
-                                    <span>@Html.DisplayFor(modelItem => itemItem.Occupied)</span>
-                                </div>
-                                <div class="d-flex justify-content-evenly align-items-center flex-wrap gap-3">
-                               
-                                    <a asp-controller="PresenterTimeSlot" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary w-100">Edit</a>
-                                    <a asp-controller="PresenterTimeSlot" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger w-100">Delete</a>
+                                <div class="media-body author_text text-center">
+                                    <a asp-controller="PresenterTimeSlot" asp-action="Create" class="b_title"> Add Time Slot </a>
                                 </div>
                             </div>
+
                         </div>
-                    }
+                    </div>
+                </div>
 
-                }
-                <a class="btn btn-outline-success" asp-area="" asp-controller="PresenterTimeSlot" asp-action="Create">Add Time Slot</a>
+            }
 
-            </div>
-        }
+
+
+
+        </div>
     </div>
-</div>
+</section>
+
+

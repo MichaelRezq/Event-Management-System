@@ -7,56 +7,297 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EMS.styles.css" asp-append-version="true" />
+
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
+    <!-- icon css-->
+    <link rel="stylesheet" href="~/assets/elagent-icon/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/magnify-pop/magnific-popup.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/animation/animate.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style-main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true" />
+
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Hotel" asp-action="Index">Hotel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Investor" asp-action="Index">Investor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Presenter" asp-action="Index">Presenter</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Reservation</a>
-                        </li>
-                       
-                       
-                       
-                   
-                    </ul>        
-                    <partial name="_LoginPartial" />
+<body data-scroll-animation="true" >
+    
+    <div id="preloader">
+        <div id="ctn-preloader" class="ctn-preloader">
+            <div class="round_spinner">
+                <div class="spinner"></div>
+                <div class="text">
+                    <img src="~/images/spinner_logo.png" alt="">
+                    <h4>
+                        <a  asp-area="" asp-controller="Home" asp-action="Index">Ama</a>
+                    </h4>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <h2 class="head">Did You Know?</h2>
+            <p></p>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <div class="body_wrapper">
+        <div class="click_capture"></div>
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg menu_one sticky-nav d-lg-block d-none">
+            <div class="container">
+                <a class="navbar-brand header_logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="first_logo sticky_logo" src="~/images/logo.png" srcset="~/images/logo-2x.png 2x" alt="logo" />
+                    <img class="white_logo main_logo" src="~/images/logo-w.png" srcset="~/images/logo-w2x.png 2x" alt="logo" />
+                </a>
+              
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav menu ms-auto">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false" ></i> 
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Hotel" asp-action="Index" role="button" n"
+                               aria-haspopup="true" aria-expanded="false">
+                                Hotel
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false"
+                               data-bs-toggle="dropdown"></i>
+                          
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Investor" asp-action="Index">
+                                Investor
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false"
+                               data-bs-toggle="dropdown"></i>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Presenter" asp-action="Index"
+                               aria-haspopup="true" aria-expanded="false">
+                                Presenter
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false"
+                               data-bs-toggle="dropdown"></i>
+                           
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index">
+                                Reservation
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon" aria-hidden="false"
+                               data-bs-toggle="dropdown"></i>
+                        </li>
+                    </ul>
+                    <div class="right-nav">
+                        <a class="action_btn btn_small_two btn-text-medium" href="#">Sign In</a>
+                        <a class="px-2 ms-3" href="#" title="Subscribe to the newsletter">
+                            <ion-icon name="mail"></ion-icon>
+                        </a>
+                        <a class="px-2" href="#" title="RSS feed">
+                            <ion-icon name="logo-rss"></ion-icon>
+                        </a>
+                        <div class="px-2 js-darkmode-btn ms-0" title="Toggle dark mode">
+                            <label for="something" class="tab-btn tab-btns">
+                                <ion-icon name="moon"></ion-icon>
+                            </label>
+                            <label for="something" class="tab-btn">
+                                <ion-icon name="sunny"></ion-icon>
+                            </label>
+                            <label class=" ball" for="something"></label>
+                            <input type="checkbox" name="something" id="something" class="dark_mode_switcher">
+                        </div>
+                    </div>
+                </div>
+                <partial name="_LoginPartial" />
+
+            </div>
+        </nav>
+
+
+
+
+
+        <div class="mobile_main_menu  sticky-nav menu_one">
+            <div class="container">
+                <div class="mobile_menu_left">
+                    <button type="button" class="navbar-toggler mobile_menu_btn">
+                        <span class="menu_toggle ">
+                            <span class="hamburger">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </span>
+                    </button>
+                    <a class="navbar-brand header_logo" href="index-2.html">
+                        <img class="sticky_logo  " src="~/images/logo.png" srcset="~/images/logo-2x.png 2x" alt="logo">
+                        <img class="white_logo main_logo" src="~/images/logo-w.png" srcset="~/images/logo-w2x.png 2x" alt="logo">
+                    </a>
+                </div>
+                <div class="mobile_menu_right">
+                    <div class="right-nav">
+                        <div class="px-2 js-darkmode-btn" title="Toggle dark mode">
+                            <label for="something2" class="tab-btn tab-btns">
+                                <ion-icon name="moon"></ion-icon>
+                            </label>
+                            <label for="something2" class="tab-btn">
+                                <ion-icon name="sunny"></ion-icon>
+                            </label>
+                            <label class=" ball" for="something2"></label>
+                            <input type="checkbox" name="something2" id="something2" class="dark_mode_switcher">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="side_menu">
+            <div class="mobile_menu_header">
+                <div class="close_nav">
+                    <i class="icon_close"></i>
+                </div>
+                <div class="mobile_logo">
+                    <a class="navbar-brand header_logo me-0" href="index-2.html">
+                        <img class="sticky_logo main_logo" src="~/images/logo.png" srcset="~/images/logo-2x.png 2x" alt="logo">
+                        <img class="white_logo" src="~/images/logo-w.png" srcset="~/images/logo-w2x.png 2x" alt="logo">
+                    </a>
+                </div>
+            </div>
+            <div class="mobile_nav_wrapper">
+                <nav class="mobile_nav_top">
+                    <ul class="navbar-nav menu ms-auto">
+                        <li class="nav-item dropdown submenu ">
+                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
+                            
+                        </li>
+                        <li class="nav-item dropdown submenu">
+                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Hotel" asp-action="Index">
+                                Hotel
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
+                      
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Investor" asp-action="Index">
+                                Investor
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
+                          
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Presenter" asp-action="Index">
+                                Presenter
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
+
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Reservation" asp-action="Index">
+                                Reservation
+                            </a>
+                            <i class="arrow_carrot-down_alt2 mobile_dropdown_icon"></i>
+                           
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+
+
+        <section class="banner-area-7 pt-110 pb-100 has_search">
+
+
+            @RenderBody()
+
+
+        </section>
+
+
+
+
+
+
+    <footer class="footer-3 bg_color_2">
+        <div class="footer-shapes">
+            <div class="shape">
+                <img class="wow fadeInLeft" data-wow-delay="0.5s" src="~/images/footer/shape-1.png" alt="">
+            </div>
+            <div class="shape">
+                <img src="~/images/footer/shape-2.png" alt="">
+            </div>
+        </div>
         <div class="container">
-            &copy; 2023 - EMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="footer-top pt-105 pb-120">
+                <div class="row gy-lg-0 gy-4">
+                    <div class="col-lg-4 col-sm-6 wow fadeInLeft">
+                        
+                    </div>
+                    <div class="col-lg-2 ps-xl-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="footer-widget ps-lg-5">
+                            <h6 class="widget-title mb-4">Company</h6>
+                            <ul class="link-list list-unstyled">
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Careers</a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="footer-widget pl-lg-90">
+                            <h6 class="widget-title mb-4">Product</h6>
+                            <ul class="link-list list-unstyled">
+                                <li><a href="#">Designer</a></li>
+                                <li><a href="#">Interactions</a></li>
+                                <li><a href="#">CMS</a></li>
+                                <li><a href="#">Ecommerce</a></li>
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="footer-widget ps-lg-3">
+                            <h6 class="widget-title mb-4">Get Help</h6>
+                            <ul class="link-list list-unstyled">
+                                <li><a href="#">Forum</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Community</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom pt-40 pb-40">
+                <div class="d-flex justify-content-between flex-wrap">
+
+                    <p class="wow fadeInRight">Copyright 2021, All Rights Reserved</p>
+                    <ul class="footer-menu list-unstyled wow fadeInLeft">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Latest Projects</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    </div>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/pre-loader.js"> </script>
+    <script src="~/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/parallaxie.js"></script>
+    <script src="~/assets/magnify-pop/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/wow/wow.min.js"></script>
+    <script src="~/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

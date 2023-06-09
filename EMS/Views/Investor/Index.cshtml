@@ -4,41 +4,68 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Mobile)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<!--================Community Area =================-->
+<section class="community-area bg-disable">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-35 flex-wrap">
+            <h2 class="section-title-h2 mb-0">Meet Investors</h2>
+            <div><a asp-controller="Investor" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Investor</a></div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Investors
+                </button>
+            </li>
+           
+        </ul>
+        <div class="tab-content mt-30" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row gy-4 justify-content-center">
+                    @foreach (var inv in Model)
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img src="~/images/Investor.jpg" class="img-fluid">
-                    <a asp-action="Details" asp-route-id="@item.Id" class="card-title text-decoration-none text-primary d-block"> @Html.DisplayFor(modelItem => item.Name)</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <div class="community-topic-widget-box wow fadeInUp">
+                                <img src="~/images/home_two/lightbulb.svg" alt="icon">
+                                <div class="box-content">
+                                    <a asp-controller="Investor" asp-action="Details" asp-route-id="@inv.Id">
+                                        <h5>@inv.Name</h5>
+                                    </a>
+                                    <span></span>
+                                    <span class="vr-line">|</span>
+                                    <span>@inv.Mobile</span>
+                                    <hr/>
+                                   <div class="d-flex justify-content-between">
+                                        <a class="c_blue"
+                                           asp-controller="Investor" asp-action="Details" asp-route-id="@inv.Id"><i class="icon_pencil-edit"></i></a>
+                                        <a class="c_blue text-danger"
+                                           asp-controller="Investor" asp-action="Delete" asp-route-id="@inv.Id"><i class="icon_trash"></i></a>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 mx-auto">
+                        <a asp-controller="Reservation" asp-action="Create" class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                            <div class="arrow-cont">
+                                <i class="arrow_carrot-down first"></i>
+                                <i class="arrow_carrot-down second"></i>
+                            </div> Reserve Now
+                        </a>
+                    </div>
                 </div>
             </div>
+          
+        </div>
 
 
-        }
-    </tbody>
-</table>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="InvestorSector" asp-action="Index">InvestorSector</a>
-</li>
-
+    </div>
+</section>

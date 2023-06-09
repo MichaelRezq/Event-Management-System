@@ -22,6 +22,18 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <select>
+                    <option disabled selected>test</option>
+                    @foreach (var i in ViewBag.Topics)
+                    {
+                        <option value="i.Id">i.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="StartTime" class="control-label"></label>
                 <select id="timeSlot" class="form-control" asp-for="StartTime" asp-items="ViewBag.TimeSlots"></select>
                 <span asp-validation-for="StartTime" class="text-danger"></span>

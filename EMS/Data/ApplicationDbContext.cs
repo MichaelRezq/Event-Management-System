@@ -20,7 +20,6 @@ namespace EMS.Data
         public DbSet<EMS.Models.PresenterSector>? PresenterSector { get; set; }
         public DbSet<EMS.Models.PresenterTimeSlot>? PresenterTimeSlot { get; set; }
         public DbSet<EMS.Models.Reservation>? Reservation { get; set; }
-        public DbSet<EMS.Models.ReservationTimeSlot>? ReservationTimeSlot { get; set; }
         public DbSet<RoomTimeSlot>? RoomTimeSlot { get; set; }
     }
 }

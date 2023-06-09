@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EMS.Data;
+﻿using EMS.Data;
+using EMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using EMS.Models;
-using EMS.Models;
 
 namespace EMS.Controllers
 {
@@ -53,10 +48,11 @@ namespace EMS.Controllers
         {
 
 
-            ViewData["Topic"] = new SelectList(_context.InvestorSector, "Id", "Name");
+            ViewData["Topic"] = new SelectList(_context.InvestorSector, "Id", "Name", "Select Topic");
+            ViewBag.Topics = _context.InvestorSector.ToArray();
             ViewData["TimeSlots"] = new SelectList(_context.InvestorTimeSlot, "Id", "StartTime");
             ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number");
-            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Name");
+            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Name","Select Investor");
             ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Name");
 
 

@@ -4,27 +4,83 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>All Hotels</h1>
+<!--================Community Area =================-->
+<section class="community-area bg-disable">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-35 flex-wrap">
+            <h2 class="section-title-h2 mb-0">Meet Hotels</h2>
+            <div><a asp-controller="Hotel" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Hotel</a></div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Hotels
+                </button>
+            </li>
 
-<p>
-    <a class="btn btn-info" asp-action="Create">Add New Hotel</a>
-</p>
-   <div class="d-flex justify-content-evenly align-content-center">
-@foreach (var item in Model) {
-            <div  class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img src="~/images/hotel-sign-stars-3d-illustration-260nw-195879770.webp" class="img-fluid" >
-                    <a asp-action="Details" asp-route-id="@item.Id" class="card-title text-decoration-none text-primary d-block"> @Html.DisplayFor(modelItem => item.Name)</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+        </ul>
+        <div class="tab-content mt-30" id="myTabContent">
+            @foreach (var pre in Model)
+            {
+                <div class="single-forum-post-widget wow fadeInUp">
+
+                    <div class="post-content">
+                        <div class="post-title">
+                            <h6>
+                                <a asp-controller="Hotel" asp-action="Details" asp-route-id="@pre.Id">Hotel</a>
+                                <span><i class="icon_check_alt2"></i></span>
+                            </h6>
+                        </div>
+                        <div class="post-info">
+                            <div class="author">
+                                <a asp-controller="Hotel" asp-action="Details" asp-route-id="@pre.Id">
+                                    <i class="icon_house" ></i> @pre.Name
+
+                                </a>
+                            </div>
+
+
+                            
+                        </div>
+
+                    </div>
+                    <div class="post-reach">
+                        <div class="post-view">
+                        </div>
+                        <div class="post-like">
+                            <a asp-action="Edit" asp-route-id="@pre.Id" class="text-primary"><i class="icon_pencil-edit"></i></a>
+                            <br>
+                            <div class="post-comment">
+                                <a asp-action="Delete" asp-route-id="@pre.Id" class="text-danger"> <i class="icon_trash"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            }
+
+
+            <div class="row">
+                <div class="col-sm-5 mx-auto">
+                    <a asp-controller="Reservation" asp-action="Create"
+                       class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                        <div class="arrow-cont">
+                            <i class="arrow_carrot-down first"></i>
+                            <i class="arrow_carrot-down second"></i>
+                        </div> Reserve Now
+
+                    </a>
                 </div>
             </div>
+        </div>
 
-       
-}
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ConferenceRoom" asp-action="Index">ConferenceRoom</a>
-          
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RoomTimeSlot" asp-action="Index">RoomTimeSlot</a>
-        </div
+    </div>
 
+
+    </div>
+</section>
 

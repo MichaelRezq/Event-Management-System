@@ -4,32 +4,88 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="d-flex justify-content-between align-items-center flex-wrap gap-4">
-    <h1>Presenters List</h1>
+<!--================Community Area =================-->
+<section class="community-area bg-disable">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-35 flex-wrap">
+            <h2 class="section-title-h2 mb-0">Meet Presenters</h2>
+            <div><a asp-controller="Presenter" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Presenter</a></div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Presenters
+                </button>
+            </li>
+            
+        </ul>
+        <div class="tab-content mt-30" id="myTabContent">
+                @foreach (var pre in Model)
+                {
+                    <div class="single-forum-post-widget wow fadeInUp">
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Presenter</a>
-</p>
-</div>
+                        <div class="post-content">
+                            <div class="post-title">
+                                <h6>
+                                <a asp-controller="Presenter" asp-action="Details" asp-route-id="@pre.Id" >Presenter</a>
+                                    <span><i class="icon_check_alt2"></i></span>
+                                </h6>
+                            </div>
+                            <div class="post-info">
+                                <div class="author">
+                                    <a asp-controller="Presenter" asp-action="Details" asp-route-id="@pre.Id">
+                                        <img src="~/images/user-circle-alt.svg" alt="icon">@pre.Name
 
-           <div class="d-flex justify-content-evenly align-content-center">
-@foreach (var item in Model) {
-            <div  class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h2 class="card-title text-center text-success"> Presenter</h2>
-                    <img src="~/images/Presenter.jpg" class="img-fluid" >
-                    <a asp-action="Details" asp-route-id="@item.Id" class="card-title text-decoration-none text-primary d-block"> @Html.DisplayFor(modelItem => item.Name)</a>
-                    <div class="d-flex justify-content-between">
+                                    </a>
+                                </div>
 
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                              
+                                <div class="post-category">
+                                    <a asp-controller="Presenter" asp-action="Details" asp-route-id="@pre.Id" >
+                                        <img src="~/images/home_three/forum-catagory-02.svg" alt="">@pre.Mobile
+                                    </a>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="post-reach">
+                                <div class="post-view">
+                                   
+                                </div>
+                                <div class="post-like">
+                                    <a asp-action="Edit" asp-route-id="@pre.Id" class="text-primary"><i class="icon_pencil-edit" ></i></a>
+                                    <br>
+                                <div class="post-comment">
+                                       <a asp-action="Delete" asp-route-id="@pre.Id" class="text-danger"> <i class="icon_trash" ></i></a>         
+                                       </div>
+
+                                </div>
+                            </div>
+                        
                     </div>
 
+
+                }
+
+            
+                <div class="row">
+                    <div class="col-sm-5 mx-auto">
+                        <a asp-controller="Reservation" asp-action="Create" 
+                           class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                            <div class="arrow-cont">
+                                <i class="arrow_carrot-down first"></i>
+                                <i class="arrow_carrot-down second"></i>
+                            </div> Reserve Now
+                            
+                        </a>
+                    </div>
                 </div>
             </div>
-}
-        </div
+
+        </div>
 
 
-
+    </div>
+</section>
 

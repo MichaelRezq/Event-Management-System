@@ -4,61 +4,78 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="container">
+<section class="doc_blog_grid_area bg-disable">
+    <div class="blog_grid_inner bg_color">
+        <div class="container">
+            <div class="d-flex justify-content-between mb-35 flex-wrap">
+                <h2 class="section-title-h2 mb-0"></h2>
+                <div><a asp-controller="ConferenceRoom" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Sector</a></div>
+            </div>
 
-    <h1>Details</h1>
+            <ul class="nav blog_tab">
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row blog_grid_tab">
 
-    <h4>Hotel</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Item1.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Item1.Name)
-        </dd>
-    </dl>
-</div>
+            @foreach (var item in Model.Item2)
+            {
 
-<div>
-    <h4>Available Rooms</h4>
-    <hr />
+                <div class="col-lg-4 col-sm-6">
+                    <div class="blog_grid_post shadow-sm wow fadeInUp">
+                        <img src="img/blog-grid/blog_grid_post1.jpg" alt="">
+                        <div class="grid_post_content">
 
-    <div class="d-flex justify-content-evenly align-content-center">
-        @foreach (var item in Model.Item2)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <a asp-controller="ConferenceRoom" asp-action="Details" asp-route-id="@item.Id" class="card-title">@Html.DisplayFor(modelItem => item.number)</a>
-                </div>
-                @foreach (var itemItem in Model.Item3)
-                {
-                    @if(itemItem.ConferenceRoomId==item.Id)
-                    {
-                        
-                    
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-content-center" >
-                                <p> Start Date </p>
-                                <p>@Html.DisplayFor(modelItem => itemItem.StartTime)</p>
+                            <a asp-controller="ConferenceRoom" asp-action="Details" asp-route-id="@item.Id">
+                                <h4 class="b_title text-center text-capitalize">@item.number</h4>
+                            </a>
+
+                            @foreach (var itemItem in Model.Item3)
+                            {
+                                @if (itemItem.ConferenceRoomId == item.Id)
+                                {
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Start Time </a>
+                                        <a class="c_blue text-danger" asp-controller="RoomTimeSlot" asp-action="Delete" asp-route-id="@item.Id"><i class="icon_trash"></i> </a>
+                                        <a class="c_blue"
+                                           asp-controller="RoomTimeSlot" asp-action="Edit" asp-route-id="@item.Id"><i class="icon_pencil-edit"></i></a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => itemItem.StartTime) </a>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> End Time </a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => itemItem.EndTime) </a>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Occupied </a>
+
+                                        <a href="#"> @Html.DisplayFor(modelItem => itemItem.Occupied) </a>
+                                    </div>
+
+                                    <hr />
+                                }
+                            }
+
+                            <div class="media post_author">
+                                <div class="round_img">
+                                    <img src="img/blog-grid/author_1.jpg" alt="">
+                                </div>
+                                <div class="media-body author_text text-center">
+                                    <a asp-controller="RoomTimeSlot" asp-action="Create" class="b_title"> Add Time Slot </a>
+                                </div>
                             </div>
-                            <div class="d-flex justify-content-between align-content-center">
-                                <p> End Date </p>
-                                <span>@Html.DisplayFor(modelItem => itemItem.EndTime)</span>
-                            </div>
+
                         </div>
                     </div>
-                    }
-                }
-            </div>
-        }
+                </div>
+
+            }
+
+
+
+
+        </div>
     </div>
+</section>
 
-</div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Item1?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>

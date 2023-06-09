@@ -1,8 +1,219 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!--================Banner Area =================-->
+<section class="banner-area-3 has_search">
+    <div class="banner-shapes">
+        <div class="shape">
+            <img data-parallax='{"x": -60, "y": 0}' src="~/images/home_two/banner-shape-1.png" alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": -20, "y": 0}' src="~/images/home_two/banner-shape-2.png" alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": 60, "y": 0}' src="~/images/home_two/banner-shape-3.png" alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": 40, "y": 0}' src="~/images/home_two/banner-shape-4.png" alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": 200, "y": 90, "rotateY":700}' src="~/images/home_two/banner-shape-5.png"
+                 alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": 200, "y": 70, "rotateZ":700}' src="~/images/home_two/banner-shape-6.png"
+                 alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": -150, "y": 90, "rotateZ":0}' src="~/images/home_two/banner-shape-7.png"
+                 alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": -200, "y": 90, "rotateX":700}' src="~/images/home_two/banner-shape-8.png"
+                 alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": -150, "y": 90, "rotateZ":0}' src="~/images/home_two/banner-shape-9.png"
+                 alt="shape">
+        </div>
+        <div class="shape">
+            <img data-parallax='{"x": -200, "y": 70, "rotateX":700}' src="~/images/home_two/banner-shape-10.png"
+                 alt="shape">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row doc_banner_content">
+            <div class="col-12 px-0">
+                <h1 class="banner-title-h1">Welcome to Ama Support Center</h1>
+                <p class="banner-text-p">
+                    Meet other Ama users like you.
+                    Manage Appointments & discover new ways to use Ama.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!--================End Bannner Area =================-->
+<!--================Ama Statistics Area =================-->
+<section class="forum-statistics">
+    <div class="container">
+        <div class="row align-items-center gy-lg-0 gy-4">
+            <div class="col-lg-8">
+                <div class="row gy-4 gy-sm-0">
+                    <div class="col-sm-4">
+                        <div class="statistics-widget wow fadeInRight justify-content-center justify-content-sm-start">
+                            <img src="~/images/home_two/icon-1.svg" alt="icon">
+                            <div>
+                                <h4>
+                                    <span class="counter d-inline-block">1099</span>+
+                                </h4>
+                                <p>members</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="statistics-widget wow fadeInRight justify-content-center justify-content-sm-start"
+                             data-wow-delay="0.3s">
+                            <img src="~/images/home_two/icon-2.svg" alt="icon">
+                            <div>
+                                <h4 class="counter">5099</h4>
+                                <p>posts</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="statistics-widget wow fadeInRight justify-content-center justify-content-sm-start"
+                             data-wow-delay="0.6s">
+                            <img src="~/images/home_two/icon-3.svg" alt="icon">
+                            <div>
+                                <h4 class="counter">255</h4>
+                                <p>online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+            <div class="col-lg-4 text-lg-end text-center wow fadeInLeft" data-wow-delay="0.3s">
+                <a class="action_btn btn_bg round-btn" href="#">Start a Discussion</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!--================Community Area =================-->
+<section class="community-area bg-disable">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-35 flex-wrap">
+            <h2 class="section-title-h2 mb-0">Community</h2>
+            <div><a asp-controller="Reservation" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">New Reservation</a></div>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Investors
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">
+                   Presenters
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content mt-30" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row gy-4 justify-content-center">
+                @foreach (var inv in ViewBag.investor)
+
+                    {
+                        <div class="col-md-6 col-lg-4">
+                            <div class="community-topic-widget-box wow fadeInUp">
+                                <img src="~/images/home_two/lightbulb.svg" alt="icon">
+                                <div class="box-content">
+                                    <a asp-controller="Investor" asp-action="Details" asp-route-id="@inv.Id">
+                                        <h5>@inv.Name</h5>
+                                    </a>
+                                    <span></span>
+                                    <span class="vr-line">|</span>
+                                    <span>21 followers</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                   
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 mx-auto">
+                        <a asp-controller="Presenter" asp-action="Index" class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                            <div class="arrow-cont">
+                                <i class="arrow_carrot-down first"></i>
+                                <i class="arrow_carrot-down second"></i>
+                            </div> Show
+                            More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+           
+                @foreach (var pre in ViewBag.Presenter)
+                {
+                    <div class="single-forum-post-widget wow fadeInUp">
+
+                        <div class="post-content">
+                            <div class="post-title">
+                                <h6>
+                                    <a href="#">Presenter</a>
+                                    <span><i class="icon_check_alt2"></i></span>
+                                </h6>
+                            </div>
+                            <div class="post-info">
+                                <div class="author">
+                                    <a asp-controller="Presenter" asp-action="Details" asp-route-id="@pre.Id">
+                                        <img src="~/images/user-circle-alt.svg" alt="icon">@pre.Name
+
+                                    </a>
+                                </div>
+
+                              
+                                <div class="post-category">
+                                    <a asp-controller="Presenter" asp-action="Details" asp-route-id="@pre.Id" >
+                                        <img src="~/images/home_three/forum-catagory-02.svg" alt="">@pre.Mobile
+                                    </a>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+
+                }
+
+            
+                <div class="row">
+                    <div class="col-sm-5 mx-auto">
+                        <a asp-controller="Presenter" asp-action="Index" 
+                           class="dbl-arrow-upper show-more-btn show-more-round w-100 mt-70 wow fadeInUp">
+                            <div class="arrow-cont">
+                                <i class="arrow_carrot-down first"></i>
+                                <i class="arrow_carrot-down second"></i>
+                            </div> Show
+                            More
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!--================End Community Area =================-->
