@@ -13,12 +13,16 @@ namespace EMS.Models
         {
             occupied = false;
         }
+        [Key]
         public int Id { get; set; }
 
 
         private TimeSpan startTime;
-
+        [Required]
         [Display(Name = "Prefarred Start Time")]
+        [Range(typeof(TimeSpan), "00:00", "22:59")]
+
+        [DataType(DataType.Time)]
         public TimeSpan StartTime
         {
             get { return startTime; }
@@ -50,7 +54,8 @@ namespace EMS.Models
             }
             set { occupied = value; }
         }
-
+        [Required]
+        [Display(Name = "Investors Sectors")]
         [ForeignKey("InvestorSector")]
         public int InvestorSectorId { get; set; }
         public InvestorSector InvestorSectors { get; set; }

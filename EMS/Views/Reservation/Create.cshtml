@@ -3,68 +3,61 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Reservation</h4>
-<hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <label asp-for="InvestorId" class="control-label"></label>
                 <select id="investorSelect" asp-for="InvestorId" class="form-control" asp-items="ViewBag.InvestorId"> Select your </select>
             </div>
-            <div class="form-group">
+            <div class="form-group  mb-5">
                 <label asp-for="Topic" class="control-label"></label>
-                <select id="topicSelect"  class="form-control" asp-for="Topic" asp-items="ViewBag.Topic" ></select>
-                <span asp-validation-for="Topic" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Topic" class="control-label"></label>
-                <select>
-                    <option disabled selected>test</option>
+                <select id="topicSelect" class="form-control">
+                    <option disabled selected value="Select Investor First"></option>
                     @foreach (var i in ViewBag.Topics)
                     {
-                        <option value="i.Id">i.Name</option>
+                        <option value="i.Id">@i.Name</option>
                     }
                 </select>
                 <span asp-validation-for="Topic" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <label asp-for="StartTime" class="control-label"></label>
                 <select id="timeSlot" class="form-control" asp-for="StartTime" asp-items="ViewBag.TimeSlots"></select>
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <label asp-for="ConferenceRoomId" class="control-label"></label>
                 <select id="roomSelect" asp-for="ConferenceRoomId" class="form-control" asp-items="ViewBag.ConferenceRoomId"></select>
                 <span asp-validation-for="ConferenceRoomId" class="text-danger"></span>
 
             </div>
            
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <label asp-for="PresenterId" class="control-label"></label>
                 <select id="presenterSelect" class="form-control" asp-for="PresenterId" asp-items="ViewBag.PresenterId"></select>
                 <span asp-validation-for="PresenterId" class="text-danger"></span>
             </div>
             
            
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mb-5"> 
+                <input type="submit" value="Create Reservation" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
         $(document).ready(function () {
             $("#presenterSelect").empty().prop('disabled', true);

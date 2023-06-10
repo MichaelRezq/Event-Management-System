@@ -21,5 +21,15 @@ namespace EMS.Data
         public DbSet<EMS.Models.PresenterTimeSlot>? PresenterTimeSlot { get; set; }
         public DbSet<EMS.Models.Reservation>? Reservation { get; set; }
         public DbSet<RoomTimeSlot>? RoomTimeSlot { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ConferenceRoom>()
+                .HasIndex(c => c.number)
+                .IsUnique();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -11,6 +11,8 @@ namespace EMS.Models
         [Required]
         [Display(Name = "Investor Name")]
         [DataType(DataType.Text)]
+        [MaxLength(50)]
+
         public string Name { get; set; }
         [Required]
         [Display(Name = "Mobile")]

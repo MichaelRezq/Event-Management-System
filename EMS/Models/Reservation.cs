@@ -15,33 +15,38 @@ namespace EMS.Models
         [Key]
         public int Id { get; set; }
 
-        [AllowNull]
+        [Required]
+
+        [Display(Name ="Investor Prefarred Topics")]
         public string Topic { get; set; }
 
+        [Required]
         [ForeignKey("Presenter")]
+        [Display(Name = "Presenter Name")]
+
         public int PresenterId { get; set; }
         public Presenter Presenter { get; set; }
-
+        [Required]
         [ForeignKey("Investor")]
+        [Display(Name = "Investor Name")]
         public int InvestorId { get; set; }
         public Investor Investor { get; set; }
 
+        [Required]
         [ForeignKey("ConferenceRoom")]
+        [Display(Name = "Available Hotel Rooms")]
+
         public int ConferenceRoomId { get; set; }
         public ConferenceRoom ConferenceRooms { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Reservation Date")]
         public DateTime ReservationDate { get; set; } = DateTime.Now;
 
+        [Required]
         [DataType(DataType.Time)]
-        [Display(Name = "Prefarred Time")]
+        [Display(Name = "Available Prefarred Times")]
         [Range(typeof(TimeSpan), "00:00", "22:59")]
-
         public TimeSpan StartTime { get; set; }
 
-        [DataType(DataType.Time)]
-        [Display(Name = "End Time")]
         public TimeSpan EndTime
         {
             get { return StartTime.Add(TimeSpan.FromHours(1)); }

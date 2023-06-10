@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
 
 namespace EMS.Models
 {
@@ -10,9 +9,14 @@ namespace EMS.Models
         {
             occupied = false; // Set the initial value to false
         }
+
+        [Key]
         public int Id { get; set; }
+
+        [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
+        [Range(typeof(TimeSpan), "00:00:00", "22:59:00")]
         public TimeSpan StartTime { get; set; }
 
         [DataType(DataType.Time)]

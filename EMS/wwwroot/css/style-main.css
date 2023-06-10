@@ -51,11 +51,15 @@ Table of Content:
   --baseColor2: #4a6ee0;
   --hover3: #c6e7f7; }
 
+.modal-backdrop {
+    z-index:0;
+}
 /*font Variables*/
 /**=== Functions ===**/
 .col-md-offset-right-1,
 .col-lg-offset-right-1 {
-  margin-right: 8.33333333%; }
+    margin-right: 8.33333333%;
+}
 
 /*---------------------------------------------------- */
 /*----------------------------------------------------*/

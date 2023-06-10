@@ -45,7 +45,20 @@ namespace EMS.Controllers
         public IActionResult Create()
         {
             ViewData["HotelId"] = new SelectList(_context.Hotel, "Id", "Name");
+            ViewBag.RoomNumber = _context.ConferenceRoom.ToArray();
             return View();
+        }
+
+        public async Task<IActionResult> OnGetVerifyNumber(string number)
+        {
+            var room = await _context.ConferenceRoom.FirstOrDefaultAsync(r => r.number == number);
+
+            if (room != null)
+            {
+                return new JsonResult(false);
+            }
+
+            return new JsonResult(true);
         }
 
         // POST: ConferenceRoom/Create

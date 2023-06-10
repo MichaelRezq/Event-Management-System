@@ -10,7 +10,14 @@ namespace EMS.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name ="Sector Name")]
+        [DataType(DataType.Text)]
+
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Investor Name")]
+        [DataType(DataType.Text)]
 
         [ForeignKey("Investor")]
         public int InvestorId { get; set; }

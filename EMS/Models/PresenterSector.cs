@@ -10,8 +10,11 @@ namespace EMS.Models
         public int Id { get; set; }
 
         [Required]
+        [Display(Name ="Sector Name ")]
         public string Name { get; set; }
 
+        [Required]
+        [Display(Name = "Presenter Name ")]
         [ForeignKey("Presenter")]
         public int PresenterId { get; set; }
         public Presenter Presenter { get; set; }

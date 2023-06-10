@@ -9,6 +9,7 @@ namespace EMS.Models
         [Required]
         [Display(Name = "Presenter Name")]
         [DataType(DataType.Text)]
+        [MaxLength(50)]
         public string Name { get; set; }
         [Required]
         [Display(Name ="Mobile")]

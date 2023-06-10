@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EMS.Migrations
 {
-    public partial class initial : Migration
+    public partial class update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,7 +54,7 @@ namespace EMS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +67,7 @@ namespace EMS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -81,26 +81,12 @@ namespace EMS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Mobile = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Presenter", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReservationTimeSlot",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationTimeSlot", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,7 +201,7 @@ namespace EMS.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    number = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -418,6 +404,12 @@ namespace EMS.Migrations
                 column: "HotelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ConferenceRoom_number",
+                table: "ConferenceRoom",
+                column: "number",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InvestorSector_InvestorId",
                 table: "InvestorSector",
                 column: "InvestorId");
@@ -483,9 +475,6 @@ namespace EMS.Migrations
 
             migrationBuilder.DropTable(
                 name: "Reservation");
-
-            migrationBuilder.DropTable(
-                name: "ReservationTimeSlot");
 
             migrationBuilder.DropTable(
                 name: "RoomTimeSlot");

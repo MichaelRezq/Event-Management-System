@@ -1,43 +1,82 @@
 ﻿@model IEnumerable<EMS.Models.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reservations";
 }
-
-<div class="container">
-    <h1>Reservations</h1>
-
-    <p>
-        <a asp-action="Create">Add Reservation</a>
-    </p>
-
-   <div class="d-flex justify-content-evenly align-content-center">
-        @foreach (var item in Model)
-        {
-
-            <div class="card" style="width: 18rem;">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">  @Html.DisplayNameFor(model => model.Presenter):- @Html.DisplayFor(modelItem => item.Presenter.Name)</li>
-                    <li class="list-group-item">  @Html.DisplayNameFor(model => model.Investor):- @Html.DisplayFor(modelItem => item.Investor.Name)</li>
-                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.Topic):-  @Html.DisplayFor(modelItem => item.Topic)</li>
-                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.ConferenceRooms) :- @Html.DisplayFor(modelItem => item.ConferenceRooms.number)</li>
-                    <li class="list-group-item"> @Html.DisplayNameFor(model => model.StartTime):- @Html.DisplayFor(modelItem => item.StartTime)</li>
-                    <li class="list-group-item">@Html.DisplayNameFor(model => model.EndTime):-@Html.DisplayFor(modelItem => item.EndTime)</li>
-                    <li class="list-group-item">@Html.DisplayNameFor(model => model.IsDone):-@Html.DisplayFor(modelItem => item.IsDone)</li>
-
-                </ul>
-                <div class="card-footer">
-                    @Html.DisplayNameFor(model => model.ReservationDate) :-  @Html.DisplayFor(modelItem => item.ReservationDate)
-                </div>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+<section class="doc_blog_grid_area bg-disable">
+    <div class="blog_grid_inner bg_color">
+        <div class="container">
+            <div class="d-flex justify-content-between mb-35 flex-wrap">
+                <h2 class="section-title-h2 mb-0"></h2>
+                <div><a asp-controller="Reservation" asp-action="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2">Add New Reservation</a></div>
             </div>
 
-
-        }
-
+            <ul class="nav blog_tab">
+            </ul>
+        </div>
     </div>
+    <div class="container">
+        <div class="row blog_grid_tab">
 
-</div>
- 
+            @foreach (var item in Model)
+            {
+
+                <div class="col-lg-4 col-sm-6">
+                    <div class="blog_grid_post shadow-sm wow fadeInUp">
+                        <img src="~/images/blog-grid/blog_grid_post1.jpg" alt="">
+                        <div class="grid_post_content">
+
+                            <a>
+                                <h4 class="b_title text-center text-capitalize">Reservation</h4>
+                            </a>
+                            <div class="post_tag">
+                                <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Investor </a>
+                                <a class="c_blue text-danger" asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id"><i class="icon_trash"></i> </a>
+                                <a class="c_blue"
+                                   asp-controller="Reservation" asp-action="Edit" asp-route-id="@item.Id"><i class="icon_pencil-edit"></i></a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Investor) </a>
+                            </div>
+                            <div class="post_tag">
+                                <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Presenter </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Presenter) </a>
+                            </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Start Time </a>
+                             
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.StartTime) </a>
+                                    </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> End Time </a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.EndTime) </a>
+                                    </div>
+                            <div class="post_tag">
+                                <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Reservation Date </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.ReservationDate) </a>
+                            </div>
+                                    <div class="post_tag">
+                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Is Done </a>
+
+                                        <a href="#"> @Html.DisplayFor(modelItem => item.IsDone) </a>
+                                    </div>
+
+                                    <hr />
+                            <div class="media post_author">
+                                <div class="round_img">
+                                    <img src="~/images/blog-grid/author_1.jpg" alt="">
+                                </div>
+                               
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+
+
+        </div>
+    </div>
+</section>
+

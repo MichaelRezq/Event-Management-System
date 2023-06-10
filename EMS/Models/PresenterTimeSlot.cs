@@ -14,6 +14,8 @@ namespace EMS.Models
 
 
         private TimeSpan startTime;
+
+        [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Prefarred Start Time")]
         [Range(typeof(TimeSpan), "00:00", "22:59")]
@@ -49,6 +51,8 @@ namespace EMS.Models
             set { occupied = value; }
         }
 
+        [Required]
+        [Display(Name ="Presenters Sectors")]
 
         [ForeignKey("PresenterSector")]
         public int PresenterSectorId { get; set; }
