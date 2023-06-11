@@ -22,22 +22,6 @@
 </head>
 <body data-scroll-animation="true" >
     
-    <div id="preloader">
-        <div id="ctn-preloader" class="ctn-preloader">
-            <div class="round_spinner">
-                <div class="spinner"></div>
-                <div class="text">
-                    <img src="~/images/spinner_logo.png" alt="">
-                    <h4>
-                        <a  asp-area="" asp-controller="Home" asp-action="Index">Ama</a>
-                    </h4>
-                </div>
-            </div>
-            <h2 class="head">Did You Know?</h2>
-            <p></p>
-        </div>
-    </div>
-
     <div class="body_wrapper">
         <div class="click_capture"></div>
         <!-- Header -->
@@ -89,7 +73,7 @@
                         </li>
                     </ul>
                     <div class="right-nav">
-                        <a class="action_btn btn_small_two btn-text-medium" href="#">Sign In</a>
+                        <partial name="_LoginPartial" />
                         <a class="px-2 ms-3" href="#" title="Subscribe to the newsletter">
                             <ion-icon name="mail"></ion-icon>
                         </a>
@@ -108,7 +92,6 @@
                         </div>
                     </div>
                 </div>
-                <partial name="_LoginPartial" />
 
             </div>
         </nav>
@@ -238,25 +221,18 @@
                     </div>
                     <div class="col-lg-2 ps-xl-4 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="footer-widget ps-lg-5">
-                            <h6 class="widget-title mb-4">Company</h6>
+                            <h6 class="widget-title mb-4">Hotels</h6>
                             <ul class="link-list list-unstyled">
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Careers</a></li>
+                                <li><a asp-controller="Hotel" asp-action="Index">About</a></li>
                             </ul>
                         </div>
-
-
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="footer-widget pl-lg-90">
-                            <h6 class="widget-title mb-4">Product</h6>
+                            <h6 class="widget-title mb-4">Presenters</h6>
                             <ul class="link-list list-unstyled">
-                                <li><a href="#">Designer</a></li>
-                                <li><a href="#">Interactions</a></li>
-                                <li><a href="#">CMS</a></li>
-                                <li><a href="#">Ecommerce</a></li>
+                                    <li><a asp-controller="Presenter" asp-action="Index">More</a></li>
+                                
                             </ul>
                         </div>
 
@@ -265,11 +241,9 @@
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="footer-widget ps-lg-3">
-                            <h6 class="widget-title mb-4">Get Help</h6>
+                            <h6 class="widget-title mb-4">Investors</h6>
                             <ul class="link-list list-unstyled">
-                                <li><a href="#">Forum</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">Community</a></li>
+                                    <li><a asp-controller="Investor" asp-action="Index">More</a></li>
                             </ul>
                         </div>
                     </div>
@@ -278,10 +252,9 @@
             <div class="footer-bottom pt-40 pb-40">
                 <div class="d-flex justify-content-between flex-wrap">
 
-                    <p class="wow fadeInRight">Copyright 2021, All Rights Reserved</p>
+                    <p class="wow fadeInRight">Copyright 2023, All Rights Reserved</p>
                     <ul class="footer-menu list-unstyled wow fadeInLeft">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Latest Projects</a></li>
+                            <li><a href="https://github.com/MichaelRezq">Latest Projects</a></li>
                     </ul>
                 </div>
             </div>
