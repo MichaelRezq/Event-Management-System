@@ -3,6 +3,7 @@ using EMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EMS.Controllers
 {
@@ -144,16 +145,59 @@ namespace EMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Topic,PresenterId,InvestorId,ConferenceRoomId,ReservationDate,StartTime,EndTime")] Reservation reservation)
         {
-            //if (ModelState.IsValid)
-            //  {
+            // Updating the investor occupied
+            var investor = await _context.Investor.FindAsync(reservation.InvestorId);
+            var sectorIdForInvestor = await _context.InvestorSector
+                .Where(x => x.InvestorId == reservation.InvestorId && x.Name == reservation.Topic)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+
+
+            var investorTimeSlot = await _context.InvestorTimeSlot
+                .FirstOrDefaultAsync(y => y.InvestorSectorId == sectorIdForInvestor && y.StartTime == reservation.StartTime.TimeOfDay);
+
+
+            if (investorTimeSlot != null)
+            {
+                investorTimeSlot.Occupied = true;
+                _context.Entry(investorTimeSlot).State = EntityState.Modified;
+            }
+
+            // updating the presenter occupied
+            var presenter = await _context.Presenter.FindAsync(reservation.PresenterId);
+            var sectorIdForPresenter = await _context.PresenterSector
+                .Where(x => x.PresenterId == reservation.PresenterId && x.Name == reservation.Topic)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+
+
+            var presenterTimeSlot = await _context.PresenterTimeSlot
+                .FirstOrDefaultAsync(y => y.PresenterSectorId == sectorIdForPresenter && y.StartTime == reservation.StartTime.TimeOfDay);
+
+
+            if (presenterTimeSlot != null)
+            {
+                presenterTimeSlot.Occupied = true;
+                _context.Entry(presenterTimeSlot).State = EntityState.Modified;
+            }
+
+
+            // updating the Room occupied
+            var roomTime = await _context.RoomTimeSlot
+                .FirstOrDefaultAsync(y => y.ConferenceRoomId == reservation.ConferenceRoomId && y.StartTime == reservation.StartTime.TimeOfDay);
+
+
+            if (roomTime != null)
+            {
+                roomTime.Occupied = true;
+                _context.Entry(roomTime).State = EntityState.Modified;
+            }
+
+
             _context.Add(reservation);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index","Reservation");
-            //   }
-            //  ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number", reservation.ConferenceRoomId);
-            //  ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id", reservation.InvestorId);
-            //  ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Id", reservation.PresenterId);
-            // return View(reservation);
+            
         }
 
         // GET: Reservation/Edit/5

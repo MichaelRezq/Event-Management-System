@@ -34,31 +34,29 @@
                                 <a class="c_blue text-danger" asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id"><i class="icon_trash"></i> </a>
                                 <a class="c_blue"
                                    asp-controller="Reservation" asp-action="Edit" asp-route-id="@item.Id"><i class="icon_pencil-edit"></i></a>
-                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Investor) </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Investor.Name) </a>
+                            </div>
+                            <div class="post_tag">
+                                <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Topic </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Topic) </a>
                             </div>
                             <div class="post_tag">
                                 <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Presenter </a>
-                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Presenter) </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.Presenter.Name) </a>
                             </div>
                                     <div class="post_tag">
                                         <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Start Time </a>
                              
-                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.StartTime) </a>
+                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay) </a>
                                     </div>
                                     <div class="post_tag">
                                         <a class="c_blue" href="#"><i class="icon_tag_alt"></i> End Time </a>
-                                        <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.EndTime) </a>
+                                <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.EndTime.TimeOfDay) </a>
                                     </div>
                             <div class="post_tag">
                                 <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Reservation Date </a>
                                 <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => item.ReservationDate) </a>
                             </div>
-                                    <div class="post_tag">
-                                        <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Is Done </a>
-
-                                        <a href="#"> @Html.DisplayFor(modelItem => item.IsDone) </a>
-                                    </div>
-
                                     <hr />
                             <div class="media post_author">
                                 <div class="round_img">
