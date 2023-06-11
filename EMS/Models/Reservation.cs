@@ -16,16 +16,15 @@ namespace EMS.Models
         public int Id { get; set; }
 
         [Required]
-
-        [Display(Name ="Investor Prefarred Topics")]
+        [Display(Name = "Investor Preferred Topics")]
         public string Topic { get; set; }
 
         [Required]
         [ForeignKey("Presenter")]
         [Display(Name = "Presenter Name")]
-
         public int PresenterId { get; set; }
         public Presenter Presenter { get; set; }
+
         [Required]
         [ForeignKey("Investor")]
         [Display(Name = "Investor Name")]
@@ -35,7 +34,6 @@ namespace EMS.Models
         [Required]
         [ForeignKey("ConferenceRoom")]
         [Display(Name = "Available Hotel Rooms")]
-
         public int ConferenceRoomId { get; set; }
         public ConferenceRoom ConferenceRooms { get; set; }
 
@@ -43,14 +41,13 @@ namespace EMS.Models
 
         [Required]
         [DataType(DataType.Time)]
-        [Display(Name = "Available Prefarred Times")]
-       // [Range(typeof(TimeSpan), "00:00", "22:59")]
-        public TimeSpan StartTime { get; set; }
+        [Display(Name = "Available Preferred Times")]
+        public DateTime StartTime { get; set; }
 
-        public TimeSpan EndTime
+        public DateTime EndTime
         {
-            get { return StartTime.Add(TimeSpan.FromHours(1)); }
-            set { StartTime = value.Subtract(TimeSpan.FromHours(1)); }
+            get { return StartTime.AddHours(1); }
+            set { StartTime = value.AddHours(-1); }
         }
 
         private bool isDone;
@@ -58,7 +55,7 @@ namespace EMS.Models
         {
             get
             {
-                if (DateTime.Now.TimeOfDay >= EndTime) // Check if current time is greater than or equal to EndTime
+                if (DateTime.Now >= EndTime) // Check if current time is greater than or equal to EndTime
                     isDone = true;
                 return isDone;
             }

@@ -148,7 +148,7 @@ namespace EMS.Controllers
             //  {
             _context.Add(reservation);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Reservation");
             //   }
             //  ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number", reservation.ConferenceRoomId);
             //  ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id", reservation.InvestorId);
