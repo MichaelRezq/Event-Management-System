@@ -1,4 +1,4 @@
-# WebApplication6
+# EMS
 Event Management System (EMS) Web Application
 This is a readme file for the EMS (Event Management System) project. The web application is designed to manage events, including times, locations, and topics/sectors, where presenters meet with investors to present their companies. The system ensures that meetings are scheduled only if both the presenter and investor are available at the chosen time slot, share the same topics, and if a suitable room is available. All meetings have a duration of one hour.
 
