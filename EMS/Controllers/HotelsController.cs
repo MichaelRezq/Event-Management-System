@@ -48,7 +48,8 @@ namespace EMS.Controllers
 
             _context.SaveChanges();
 
-            return Index();
+           // return Index();
+           return RedirectToAction("Index","Hotel");
         }
 
         private List<HotelViewModel> GetHotelList(string fileName)

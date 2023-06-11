@@ -42,9 +42,6 @@ namespace EMS.Migrations
 
                     b.HasIndex("HotelId");
 
-                    b.HasIndex("number")
-                        .IsUnique();
-
                     b.ToTable("ConferenceRoom");
                 });
 

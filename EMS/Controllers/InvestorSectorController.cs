@@ -44,7 +44,9 @@ namespace EMS.Controllers
         // GET: InvestorSector/Create
         public IActionResult Create()
         {
-            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id");
+            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Name");
+            ViewBag.UserSectors = _context.InvestorSector.ToArray();
+
             return View();
         }
 

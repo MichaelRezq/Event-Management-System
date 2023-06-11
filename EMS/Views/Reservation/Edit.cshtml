@@ -3,59 +3,174 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>Reservation</h4>
-<hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+
+            <div class="form-group mb-5">
+                <label asp-for="InvestorId" class="control-label"></label>
+                <select id="investorSelect" asp-for="InvestorId" class="form-control" asp-items="ViewBag.InvestorId"> Select your </select>
+            </div>
+            <div class="form-group  mb-5">
                 <label asp-for="Topic" class="control-label"></label>
-                <input asp-for="Topic" class="form-control" />
+                <select id="topicSelect" class="form-control">
+                    <option disabled selected value="Select Investor First"></option>
+                    @foreach (var i in ViewBag.Topics)
+                    {
+                        <option value="i.Id">@i.Name</option>
+                    }
+                </select>
                 <span asp-validation-for="Topic" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PresenterId" class="control-label"></label>
-                <select asp-for="PresenterId" class="form-control" asp-items="ViewBag.PresenterId"></select>
-                <span asp-validation-for="PresenterId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InvestorId" class="control-label"></label>
-                <select asp-for="InvestorId" class="form-control" asp-items="ViewBag.InvestorId"></select>
-                <span asp-validation-for="InvestorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConferenceRoomId" class="control-label"></label>
-                <select asp-for="ConferenceRoomId" class="form-control" asp-items="ViewBag.ConferenceRoomId"></select>
-                <span asp-validation-for="ConferenceRoomId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReservationDate" class="control-label"></label>
-                <input asp-for="ReservationDate" class="form-control" />
-                <span asp-validation-for="ReservationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+
+            <div class="form-group mb-5">
                 <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
+                <select id="timeSlot" class="form-control" asp-for="StartTime" asp-items="ViewBag.TimeSlots"></select>
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="EndTime" class="control-label"></label>
-                <input asp-for="EndTime" class="form-control" />
-                <span asp-validation-for="EndTime" class="text-danger"></span>
+
+            <div class="form-group mb-5">
+                <label asp-for="ConferenceRoomId" class="control-label"></label>
+                <select id="roomSelect" asp-for="ConferenceRoomId" class="form-control" asp-items="ViewBag.ConferenceRoomId"></select>
+                <span asp-validation-for="ConferenceRoomId" class="text-danger"></span>
+
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+           
+            <div class="form-group mb-5">
+                <label asp-for="PresenterId" class="control-label"></label>
+                <select id="presenterSelect" class="form-control" asp-for="PresenterId" asp-items="ViewBag.PresenterId"></select>
+                <span asp-validation-for="PresenterId" class="text-danger"></span>
+            </div>
+            
+           
+            <div class="form-group mb-5"> 
+                <input type="submit" value="Update Reservation" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $("#presenterSelect").empty().prop('disabled', true);
+            $("#topicSelect").empty().prop('disabled', true);
+            $("#topicSelect").empty().prop('disabled', true);
+            $("#timeSlot").empty().prop('disabled', true);
+            $("#roomSelect").empty().prop('disabled', true);
+
+
+
+            $("#topicSelect").change(function () {
+                console.log("ffffffffffffffffffffff")
+                $("#timeSlot").prop('disabled', false);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetInvestorTimeSlots")',
+                    dataType: 'json',
+                    data: { id: $("#topicSelect").val() },
+                    success: function (times) {
+                        console.log(times)
+
+                        $.each(times, function (i, time) {
+                            console.log("ffffffffffffffffffffff", i)
+                            console.log("ffffffffffffffffffffff", time)
+                            $("#timeSlot").append('<option value="' + time.id + '">' + time.startTime + '</option>')
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Times.' + ex);
+                    }
+                });
+                return false;
+            })
+
+
+
+
+            $("#investorSelect").change(function () {
+                $("#topicSelect").prop('disabled', false);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetInvestorSectors")',
+                    dataType: 'json',
+                    data: { id: $("#investorSelect").val() },
+                    success: function (topics) {
+                        console.log(topics)
+                        $.each(topics, function (i, topic) {
+                            $("#topicSelect").append('<option value="' + topic.id + '">' + topic.name + '</option>')
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve topics.' + ex);
+                    }
+                });
+                return false;
+            })
+
+
+            $("#timeSlot").change(function () {
+                $("#roomSelect").prop('disabled', false);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetConferenceRooms")',
+                    dataType: 'json',
+                    data: { starttime: $("#timeSlot option:selected").text() },
+                    success: function (rooms) {
+                        console.log(rooms)
+                        console.log("time------------>", $("#timeSlot option:selected").text())
+                        $.each(rooms, function (i, room) {
+                            console.log(room)
+                            $("#roomSelect").append('<option value="' + room.id + '">'+ room.hotel.name + room.number + '</option>')
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve Rooms.' + ex);
+                    }
+                });
+                return false;
+            })
+
+
+            $("#roomSelect").change(function () {
+                $("#presenterSelect").prop('disabled', false);
+
+                console.log("ffffffffffffffffffffff")
+                console.log("topics-------------->",$("#topicSelect").text())
+                console.log("timeSlot-------------->",typeof( $("#timeSlot").text()))
+                $("#presenterSelect").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetPresenters")',
+                    dataType: 'json',
+                    data: {
+                        topicname: $("#topicSelect option:selected").text(),
+                        timeslot: $("#timeSlot option:selected").text()
+                    },
+                    success: function (presenters) {
+                        console.log("presenters====>",presenters)
+
+                        $.each(presenters, function (i, presenter) {
+                            console.log("presenter======>", presenter)
+                            $("#presenterSelect").append('<option value="' + presenter.id + '">' + presenter.name + '</option>')
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve presenters.' + ex);
+                    }
+                });
+                return false;
+            })
+        
+        });
+
+         </script>
+}

@@ -6,17 +6,24 @@
 
 <div class="row justify-content-center ">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="createForm" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
                 <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
+                <input id="StartTime" asp-for="StartTime" class="form-control" required />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
+            <ul id="TimeSlots" class="d-none">
+                @foreach (var i in ViewBag.TimeSlots)
+                {
+                    <li>@i.StartTime</li>
+                    <p>@i.PresenterSectorId</p>
+                }
+            </ul>
       
             <div class="form-group mb-5">
                 <label asp-for="PresenterSectorId" class="control-label"></label>
-                <select asp-for="PresenterSectorId" class ="form-control" asp-items="ViewBag.PresenterSectorId"></select>
+                <select id="UserId" asp-for="PresenterSectorId" class="form-control" asp-items="ViewBag.PresenterSectorId" required></select>
             </div>
             <div class="form-group mb-5">
                 <input type="submit" value="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
@@ -30,5 +37,64 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var timeinputedbefore = ""
+            var conditionone = false;
+            var conditiontwo = false;
+            function timeToSeconds(time) {
+                time = time.split(/:/);
+                return time[0] * 3600 + time[1] * 60 + time[2];
+            }
+            $('#createForm').on('submit', function (e) {
+                var StartTime = `${$('#StartTime').val()}:00`;
+                var UserId = $('#UserId').val();
+                var TimeSlots = document.querySelectorAll('#TimeSlots li');
+                var UserIds = document.querySelectorAll('#TimeSlots p');
+                for (var i = 0; i < TimeSlots.length; i++) {
+                    timeDifference = Math.abs(timeToSeconds(TimeSlots[i].textContent) - timeToSeconds(StartTime))
+
+
+                    console.log("Start time from array---->", TimeSlots[i].textContent)
+                    console.log("the time input value----->", StartTime)
+                    console.log("timeToSeconds------>", timeToSeconds(TimeSlots[i].textContent))
+                    console.log("timeDifference-------------------->", timeDifference)
+
+                    if (StartTime == TimeSlots[i].textContent) {
+                        conditionone = true
+                        timeinputedbefore = TimeSlots[i].textContent
+                        console.log("from conditionone StartTime is entered before", TimeSlots[i].textContent, "conditionone=", conditionone)
+                    } else if (timeDifference < 360000) {
+                        conditionone = true
+                        timeinputedbefore = TimeSlots[i].textContent
+
+                        console.log("from conditionone TimeSpan is ocupied", TimeSlots[i].textContent, "conditionone=", conditionone)
+                    }
+
+                }
+                for (var i = 0; i < UserIds.length; i++) {
+                    console.log("from the array in jq UserIds", UserIds[i].textContent)
+                    if (UserId === UserIds[i].textContent) {
+                        conditiontwo = true
+                        console.log("from conditiontwo UserId is entered before", UserIds[i].textContent)
+                        console.log("from conditiontwo UserId is entered before", UserIds[i].textContent, "conditiontwo=", conditiontwo)
+
+                    }
+                }
+                if (conditionone && conditiontwo) {
+                    console.log("from conditions ", "conditionone=", conditionone)
+                    console.log("from conditions ", "conditiontwo=", conditiontwo)
+
+                    e.preventDefault(); // Prevent form submission
+                    $('#StartTime').addClass('is-invalid');
+                    $('#StartTime').after(`<div class="invalid-feedback">Time Slot is already Added ${timeinputedbefore}</div>`);
+                    return false
+
+                } else {
+                    return true
+                }
+            });
+        });
+    </script>
 }
+

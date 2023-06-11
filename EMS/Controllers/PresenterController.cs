@@ -49,6 +49,8 @@ namespace EMS.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.PresenterName = _context.Presenter.ToArray();
+
 
             return View();
         }
@@ -60,6 +62,7 @@ namespace EMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Mobile")] Presenter presenter)
         {
+
             //    if (ModelState.IsValid)
             //  {
             _context.Add(presenter);
@@ -72,6 +75,8 @@ namespace EMS.Controllers
         // GET: Presenter/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.PresenterName = await _context.Presenter.ToArrayAsync();
+
             if (id == null || _context.Presenter == null)
             {
                 return NotFound();
@@ -97,8 +102,8 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+        //    if (ModelState.IsValid)
+          //  {
                 try
                 {
                     _context.Update(presenter);
@@ -114,10 +119,10 @@ namespace EMS.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+        //        }
+        //        return RedirectToAction(nameof(Index));
             }
-            return View(presenter);
+            return RedirectToAction("Index","Presenter");
         }
 
         // GET: Presenter/Delete/5

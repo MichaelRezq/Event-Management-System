@@ -4,50 +4,68 @@
     ViewData["Title"] = "Add Room";
 }
 
-<h1>Create</h1>
+<h1>Create ConferenceRoom </h1>
 
-<h4>ConferenceRoom</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form id="createForm" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mb-5">
                 <label asp-for="number" class="control-label"></label>
                 <input id="numberInput" asp-for="number" class="form-control" />
                 <span asp-validation-for="number" class="text-danger"></span>
             </div>
-            @foreach (var i in ViewBag.RoomNumber)
-            {
-                <p>@i.number</p>
-            }
-            <div class="form-group">
+            <ul id="roomNumber" class="d-none">
+                @foreach (var i in ViewBag.RoomNumber)
+                {
+                    <li>@i.number</li>
+                    <p>@i.HotelId</p>
+                }
+            </ul>
+            
+            <div class="form-group mb-5">
                 <label asp-for="HotelId" class="control-label"></label>
-                <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId"></select>
+                <select id="HotelId" asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Add New Room" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
             </div>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
     <script>
         $(document).ready(function () {
+            var conditionone = false;
+            var conditiontwo = false;
             $('#createForm').on('submit', function (e) {
                 var number = $('#numberInput').val();
-                var roomNumbers = @Html.Raw(Json.Serialize(ViewBag.RoomNumber));
-
+                var HotelId = $('#HotelId').val();
+                var roomNumbers = document.querySelectorAll('#roomNumber li');
+                var hotelIds = document.querySelectorAll('#roomNumber p');
                 for (var i = 0; i < roomNumbers.length; i++) {
-                    if (number === roomNumbers[i].number) {
-                       // e.preventDefault(); // Prevent form submission
-                        $('#numberInput').addClass('is-invalid');
-                        $('#numberInput').after('<div class="invalid-feedback">Number already exists</div>');
-                        return;
+                    console.log("from the array in jq",roomNumbers[i])
+                    if (number === roomNumbers[i].textContent) {
+                        conditionone =true
+                     
                     }
+                }
+                for (var i = 0; i < hotelIds.length; i++) {
+                    console.log("from the array in jq", hotelIds[i])
+                    if (HotelId === hotelIds[i].textContent) {
+                        conditiontwo = true
+                    }
+                }
+                if (conditiontwo && conditionone) {
+                    e.preventDefault(); // Prevent form submission
+                    $('#numberInput').addClass('is-invalid');
+                    $('#numberInput').after('<div class="invalid-feedback">Number already exists</div>');
+                    return false
+
+                }else{
+                    return true
                 }
             });
         });

@@ -49,6 +49,8 @@ namespace EMS.Controllers
         public IActionResult Create()
         {
             ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number");
+            ViewBag.RoomTimeSlots = _context.RoomTimeSlot.ToArray();
+
             return View();
         }
 

@@ -45,6 +45,8 @@ namespace EMS.Controllers
         public IActionResult Create()
         {
             ViewData["InvestorSectorId"] = new SelectList(_context.InvestorSector, "Id", "Name");
+            ViewBag.TimeSlots = _context.InvestorTimeSlot.ToArray();
+
             return View();
         }
 

@@ -37,9 +37,9 @@
                                 {
                                     <div class="post_tag">
                                         <a class="c_blue" href="#"><i class="icon_tag_alt"></i> Start Time </a>
-                                        <a class="c_blue text-danger" asp-controller="RoomTimeSlot" asp-action="Delete" asp-route-id="@item.Id"><i class="icon_trash"></i> </a>
+                                        <a class="c_blue text-danger" asp-controller="RoomTimeSlot" asp-action="Delete" asp-route-id="@itemItem.Id"><i class="icon_trash"></i> </a>
                                         <a class="c_blue"
-                                           asp-controller="RoomTimeSlot" asp-action="Edit" asp-route-id="@item.Id"><i class="icon_pencil-edit"></i></a>
+                                           asp-controller="RoomTimeSlot" asp-action="Edit" asp-route-id="@itemItem.Id"><i class="icon_pencil-edit"></i></a>
                                         <a href="#"><i class="icon_calendar"></i> @Html.DisplayFor(modelItem => itemItem.StartTime) </a>
                                     </div>
                                     <div class="post_tag">

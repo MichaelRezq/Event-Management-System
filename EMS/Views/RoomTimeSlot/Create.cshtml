@@ -5,17 +5,23 @@
 }
 <div class="row justify-content-center ">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="createForm" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
                 <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
+                <input id="StartTime" asp-for="StartTime" class="form-control" required />
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
-           
+            <ul id="RoomTimeSlots" class="d-none">
+                @foreach (var i in ViewBag.RoomTimeSlots)
+                {
+                    <li>@i.StartTime</li>
+                    <p>@i.ConferenceRoomId</p>
+                }
+            </ul>
             <div class="form-group mb-5">
                 <label asp-for="ConferenceRoomId" class="control-label"></label>
-                <select asp-for="ConferenceRoomId" class ="form-control" asp-items="ViewBag.ConferenceRoomId"></select>
+                <select id="ConferenceRoomId" asp-for="ConferenceRoomId" class="form-control" asp-items="ViewBag.ConferenceRoomId" required></select>
             </div>
             <div class="form-group mb-5">
                 <input type="submit" value="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
@@ -24,10 +30,65 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var conditionone = false;
+            var conditiontwo = false;
+            function timeToSeconds(time) {
+                time = time.split(/:/);
+                return time[0] * 3600 + time[1] * 60 + time[2];
+            }
+            $('#createForm').on('submit', function (e) {
+                var StartTime = `${$('#StartTime').val()}:00`;
+                var ConferenceRoomId = $('#ConferenceRoomId').val();
+                var RoomTimeSlots = document.querySelectorAll('#RoomTimeSlots li');
+                var ConferenceRoomIds = document.querySelectorAll('#RoomTimeSlots p');
+                for (var i = 0; i < RoomTimeSlots.length; i++) {
+                    timeDifference = Math.abs(timeToSeconds(RoomTimeSlots[i].textContent) - timeToSeconds(StartTime))
+
+
+                    console.log("Start time from array---->", RoomTimeSlots[i].textContent)
+                    console.log("the time input value----->", StartTime)
+                    console.log("time inputed ToSeconds------>", timeToSeconds(StartTime))
+                    console.log("timeToSeconds------>", timeToSeconds(RoomTimeSlots[i].textContent))
+                    console.log("timeDifference-------------------->", timeDifference)
+
+                    if (StartTime == RoomTimeSlots[i].textContent  ) {
+                        conditionone = true
+                        timeinputedbefore = TimeSlots[i].textContent
+
+                        console.log("from conditionone StartTime is entered before", RoomTimeSlots[i].textContent, "conditionone=", conditionone)
+                    } else if (timeDifference < 360000) {
+                        conditionone = true
+                        timeinputedbefore = TimeSlots[i].textContent
+
+                        console.log("from conditionone TimeSpan is ocupied", RoomTimeSlots[i].textContent, "conditionone=", conditionone)
+                    }
+
+                }
+                for (var i = 0; i < ConferenceRoomIds.length; i++) {
+                    console.log("from the array in jq ConferenceRoomIds", ConferenceRoomIds[i].textContent)
+                    if (ConferenceRoomId === ConferenceRoomIds[i].textContent) {
+                        conditiontwo = true
+                        console.log("from conditiontwo ConferenceRoomId is entered before", ConferenceRoomIds[i].textContent)
+                        console.log("from conditiontwo ConferenceRoomId is entered before", ConferenceRoomIds[i].textContent, "conditiontwo=", conditiontwo)
+
+                    }
+                }
+                if (conditionone && conditiontwo) {
+                    console.log("from conditions ", "conditionone=", conditionone)
+                    console.log("from conditions ", "conditiontwo=", conditiontwo)
+
+                  e.preventDefault(); // Prevent form submission
+                    $('#StartTime').addClass('is-invalid');
+                    $('#StartTime').after(`<div class="invalid-feedback">Time Slot is already Added ${timeinputedbefore}</div>`);
+                    return false
+
+                } else {
+                    return true
+                }
+            });
+        });
+    </script>
 }

@@ -23,13 +23,13 @@ namespace EMS.Data
         public DbSet<RoomTimeSlot>? RoomTimeSlot { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ConferenceRoom>()
-                .HasIndex(c => c.number)
-                .IsUnique();
+      //  protected override void OnModelCreating(ModelBuilder modelBuilder)
+      //  {
+        //    modelBuilder.Entity<ConferenceRoom>()
+          //      .HasIndex(c => c.number)
+            //    .IsUnique();
 
-            base.OnModelCreating(modelBuilder);
-        }
+           // base.OnModelCreating(modelBuilder);
+       // }
     }
 }

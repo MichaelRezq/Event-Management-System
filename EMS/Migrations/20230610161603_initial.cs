@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EMS.Migrations
 {
-    public partial class update : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -402,12 +402,6 @@ namespace EMS.Migrations
                 name: "IX_ConferenceRoom_HotelId",
                 table: "ConferenceRoom",
                 column: "HotelId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConferenceRoom_number",
-                table: "ConferenceRoom",
-                column: "number",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_InvestorSector_InvestorId",

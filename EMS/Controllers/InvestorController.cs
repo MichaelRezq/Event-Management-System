@@ -48,6 +48,8 @@ namespace EMS.Controllers
         // GET: Investor/Create
         public IActionResult Create()
         {
+            ViewBag.InvestorName = _context.Investor.ToArray();
+
             return View();
         }
 
@@ -70,6 +72,8 @@ namespace EMS.Controllers
         // GET: Investor/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.InvestorName = _context.Investor.ToArray();
+
             if (id == null || _context.Investor == null)
             {
                 return NotFound();
@@ -81,12 +85,7 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            var investorSectors = await _context.InvestorSector.Where(m => m.InvestorId == id).ToListAsync();
-            var investorTimeSlots = await _context.InvestorTimeSlot.ToListAsync();
-
-            var model = new Tuple<Investor, List<InvestorSector>, List<InvestorTimeSlot>>(investor, investorSectors, investorTimeSlots);
-
-            return View(model);
+            return View(investor);
 
         }
 
@@ -102,8 +101,8 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+      //     if (ModelState.IsValid)
+        //   {
                 try
                 {
                     _context.Update(investor);
@@ -119,10 +118,10 @@ namespace EMS.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+        //      }
+          //    return RedirectToAction(nameof(Index));
             }
-            return View(investor);
+            return RedirectToAction("Index","Investor");
         }
 
         // GET: Investor/Delete/5

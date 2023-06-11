@@ -3,32 +3,53 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>Hotel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<div class="row justify-content-between container gap-5 mt-5">
+       <div class="col-md-6">
+        <form id="createForm" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input id="UserName" asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
+                <ul id="HotelrName" class="d-none">
+                    @foreach (var i in ViewBag.HotelName)
+                    {
+                        <li>@i.Name</li>
+                    }
+                </ul>
             </div>
+            <hr />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Add New Hotel" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
             </div>
         </form>
+
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var HotelrNames = document.querySelectorAll('#HotelrName li');
+            for (var i = 0; i < HotelrNames.length; i++) {
+                console.log("from the array in jq", HotelrNames[i].textContent)
+            }
+            $('#createForm').on('submit', function (e) {
+                var UserName = $('#UserName').val();
+                for (var i = 0; i < HotelrNames.length; i++) {
+                    console.log("from the array in jq", HotelrNames[i])
+                    console.log("from the array in jq", UserName)
+
+                    if (UserName.toUpperCase() === HotelrNames[i].textContent.toUpperCase()) {
+                        e.preventDefault(); // Prevent form submission
+                        $('#UserName').addClass('is-invalid');
+                        $('#UserName').after(`<div class="invalid-feedback"> Hotel Name already exists ${UserName} </div>`);
+                        return false;
+                    }
+                }
+                return true
+            });
+        });
+    </script>
 }

@@ -5,18 +5,26 @@
 }
 
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form id="createForm" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input id="SectorName" asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <ul id="UserSectors">
+                @foreach (var i in ViewBag.UserSectors)
+                {
+                    <li>@i.Name</li>
+                    <p>@i.PresenterId</p>
+                }
+            </ul>
+
             <div class="form-group mb-5">
                 <label asp-for="PresenterId" class="control-label"></label>
-                <select asp-for="PresenterId" class ="form-control" asp-items="ViewBag.PresenterId"></select>
+                <select id="UserId" asp-for="PresenterId" class="form-control" required asp-items="ViewBag.PresenterId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
@@ -26,5 +34,38 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            var conditionone = "";
+            var conditiontwo = "";
+            var UserSectors = document.querySelectorAll('#UserSectors li');
+            $('#createForm').on('submit', function (e) {
+
+                var SectorName = $('#SectorName').val().toUpperCase();
+                var UserId = $('#UserId').val();
+                var UserSectorss = document.querySelectorAll('#UserSectors li');
+                var UserIds = document.querySelectorAll('#UserSectors p');
+
+                for (var i = 0; i < UserSectorss.length; i++) {
+                    if (SectorName === UserSectorss[i].textContent.toUpperCase()) {
+                        conditionone = true
+                    }
+                }
+                for (var i = 0; i < UserIds.length; i++) {
+                    if (UserId === UserIds[i].textContent) {
+                        conditiontwo = true
+                    }
+                }
+                if (conditionone && conditiontwo) {
+                    e.preventDefault(); // Prevent form submission
+                    $('#SectorName').addClass('is-invalid');
+                    $('#SectorName').after(`<div class="invalid-feedback">SectorName already exists ${SectorName}</div>`);
+                    return false
+
+                } else {
+                    return true
+                }
+            });
+        });
+    </script>
 }

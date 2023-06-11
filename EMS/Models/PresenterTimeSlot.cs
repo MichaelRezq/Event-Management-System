@@ -18,7 +18,7 @@ namespace EMS.Models
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Prefarred Start Time")]
-        [Range(typeof(TimeSpan), "00:00", "22:59")]
+       // [Range(typeof(TimeSpan), "00:00", "22:59")]
         public TimeSpan StartTime
         {
             get { return startTime; }

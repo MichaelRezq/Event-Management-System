@@ -48,7 +48,9 @@ namespace EMS.Controllers
         // GET: PresenterSector/Create
         public IActionResult Create()
         {
-            ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Id");
+            ViewBag.UserSectors = _context.PresenterSector.ToArray();
+
+            ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Name");
             return View();
         }
 

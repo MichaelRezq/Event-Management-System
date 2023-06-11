@@ -50,13 +50,14 @@ namespace EMS.Controllers
         // GET: Hotel/Create
         public IActionResult Create()
         {
+            ViewBag.HotelName = _context.Hotel.ToArray();
+
             return View();
         }
 
         // POST: Hotel/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Hotel hotel)
@@ -73,6 +74,8 @@ namespace EMS.Controllers
         // GET: Hotel/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.HotelName = _context.Hotel.ToArray();
+
             if (id == null || _context.Hotel == null)
             {
                 return NotFound();
@@ -83,6 +86,7 @@ namespace EMS.Controllers
             {
                 return NotFound();
             }
+
             return View(hotel);
         }
 
@@ -98,8 +102,8 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+       //     if (ModelState.IsValid)
+         //   {
                 try
                 {
                     _context.Update(hotel);
@@ -115,10 +119,10 @@ namespace EMS.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+          //      }
+           //     return RedirectToAction(nameof(Index));
             }
-            return View(hotel);
+            return RedirectToAction("Index","Hotel");
         }
 
         // GET: Hotel/Delete/5

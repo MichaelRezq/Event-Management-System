@@ -159,6 +159,8 @@ namespace EMS.Controllers
         // GET: Reservation/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
+
             if (id == null || _context.Reservation == null)
             {
                 return NotFound();
@@ -169,9 +171,12 @@ namespace EMS.Controllers
             {
                 return NotFound();
             }
-            ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number", reservation.ConferenceRoomId);
-            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id", reservation.InvestorId);
-            ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Id", reservation.PresenterId);
+            ViewData["Topic"] = new SelectList(_context.InvestorSector, "Id", "Name", "Select Topic");
+            ViewBag.Topics = _context.InvestorSector.ToArray();
+            ViewData["TimeSlots"] = new SelectList(_context.InvestorTimeSlot, "Id", "StartTime");
+            ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number");
+            ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Name", "Select Investor");
+            ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Name");
             return View(reservation);
         }
 

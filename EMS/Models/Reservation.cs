@@ -44,7 +44,7 @@ namespace EMS.Models
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Available Prefarred Times")]
-        [Range(typeof(TimeSpan), "00:00", "22:59")]
+       // [Range(typeof(TimeSpan), "00:00", "22:59")]
         public TimeSpan StartTime { get; set; }
 
         public TimeSpan EndTime

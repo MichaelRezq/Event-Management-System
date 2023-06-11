@@ -16,7 +16,7 @@ namespace EMS.Models
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
-        [Range(typeof(TimeSpan), "00:00:00", "22:59:00")]
+       // [Range(typeof(TimeSpan), "00:00:00", "22:59:00")]
         public TimeSpan StartTime { get; set; }
 
         [DataType(DataType.Time)]

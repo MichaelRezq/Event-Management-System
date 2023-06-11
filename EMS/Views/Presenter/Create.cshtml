@@ -7,50 +7,56 @@
 
 <div class="row justify-content-center">
     <div class="col-md-4">
-        <form id="form1" asp-controller="Presenter" asp-action="Create">
+        <form id="createForm" asp-controller="Presenter" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input id="UserName" asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <ul id="PresenterName" class="d-none">
+                @foreach (var i in ViewBag.PresenterName)
+                {
+                    <li>@i.Name</li>
+                }
+            </ul>
             <div class="form-group mb-5">
                 <label asp-for="Mobile" class="control-label"></label>
-                <input asp-for="Mobile" class="form-control" />
+                <input asp-for="Mobile" class="form-control" required />
                 <span asp-validation-for="Mobile" class="text-danger"></span>
             </div>
-            
-        </form>
-        <form id="form2" asp-controller="ViewModel.PresenterSector" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-5">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input id="submitButton" type="submit" value="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
             </div>
-            <div class="form-group mb-5">
-                <label asp-for="Id" class="control-label"></label>
-                <select asp-for="Id" class="form-control" asp-items="ViewBag.PresenterId"></select>
-            </div>
-           
         </form>
+        
     </div>
-    <div class="form-group mb-5">
-        <input id="submitButton" type="submit" value="Create" class="doc_border_btn doc_border_btn_two sec-btn-blue mt-2 btn btn-primary w-100 " />
-    </div>
+    
 </div>
 
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
     <script>
-        $(document).ready(function() {
-            $("#submitButton").click(function() {
-                // Submit both forms
-                $("#form1").submit();
-                $("#form2").submit();
+        $(document).ready(function () {
+            var PresenterNames = document.querySelectorAll('#PresenterName li');
+            for (var i = 0; i < PresenterNames.length; i++) {
+                console.log("from the array in jq", PresenterNames[i].textContent)
+            }
+            $('#createForm').on('submit', function (e) {
+                var UserName = $('#UserName').val();
+                for (var i = 0; i < PresenterNames.length; i++) {
+                    console.log("from the array in jq", PresenterNames[i])
+                    console.log("from the array in jq", UserName)
+           
+
+                    if (UserName === PresenterNames[i].textContent) {
+                        e.preventDefault(); // Prevent form submission
+                        $('#UserName').addClass('is-invalid');
+                        $('#UserName').after('<div class="invalid-feedback"> Presenter Name already exists</div>');
+                        return false;
+                    }
+                }
+                return true
             });
         });
     </script>
