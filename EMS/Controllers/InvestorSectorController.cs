@@ -61,7 +61,7 @@ namespace EMS.Controllers
             //    {
             _context.Add(investorSector);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Investor");
             //  }
             //ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id", investorSector.InvestorId);
             //return View(investorSector);
@@ -96,8 +96,7 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+ 
                 try
                 {
                     _context.Update(investorSector);
@@ -113,11 +112,10 @@ namespace EMS.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+ 
             }
             ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Id", investorSector.InvestorId);
-            return View(investorSector);
+            return RedirectToAction("Index", "Investor");
         }
 
         // GET: InvestorSector/Delete/5

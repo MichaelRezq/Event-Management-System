@@ -65,7 +65,7 @@ namespace EMS.Controllers
             //  {
             _context.Add(roomTimeSlot);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Hotel");
             //  }
             //  ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number", roomTimeSlot.ConferenceRoomId);
             //  return View(roomTimeSlot);
@@ -100,8 +100,7 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+    
                 try
                 {
                     _context.Update(roomTimeSlot);
@@ -117,11 +116,10 @@ namespace EMS.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index));
+                
             }
             ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number", roomTimeSlot.ConferenceRoomId);
-            return View(roomTimeSlot);
+            return RedirectToAction("Index", "Hotel");
         }
 
         // GET: RoomTimeSlot/Delete/5

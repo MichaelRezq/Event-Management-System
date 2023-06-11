@@ -65,7 +65,7 @@ namespace EMS.Controllers
             //   {
             _context.Add(presenterSector);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Presenter");
             // }
             //   ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Id", presenterSector.PresenterId);
             //  return View(presenterSector);
@@ -100,8 +100,7 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+  
                 try
                 {
                     _context.Update(presenterSector);
@@ -118,10 +117,9 @@ namespace EMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
+               
             ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Id", presenterSector.PresenterId);
-            return View(presenterSector);
+            return RedirectToAction("Index", "Presenter");
         }
 
         // GET: PresenterSector/Delete/5

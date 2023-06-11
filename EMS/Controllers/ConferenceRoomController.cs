@@ -72,7 +72,7 @@ namespace EMS.Controllers
             //    {
             _context.Add(conferenceRoom);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Hotel");
             //    }
             //     ViewData["HotelId"] = new SelectList(_context.Hotel, "Id", "Name", conferenceRoom.HotelId);
             //   return View(conferenceRoom);
@@ -107,8 +107,7 @@ namespace EMS.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+   
                 try
                 {
                     _context.Update(conferenceRoom);
@@ -125,10 +124,9 @@ namespace EMS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
-            }
+             
             ViewData["HotelId"] = new SelectList(_context.Hotel, "Id", "Name", conferenceRoom.HotelId);
-            return View(conferenceRoom);
+            return RedirectToAction("Index", "Hotel");
         }
 
         // GET: ConferenceRoom/Delete/5
