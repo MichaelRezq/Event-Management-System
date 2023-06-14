@@ -145,8 +145,11 @@ namespace EMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Topic,PresenterId,InvestorId,ConferenceRoomId,ReservationDate,StartTime,EndTime")] Reservation reservation)
         {
+            
             // Updating the investor occupied
             var investor = await _context.Investor.FindAsync(reservation.InvestorId);
+            var test = reservation;
+            var t = await _context.InvestorSector.ToListAsync();
             var sectorIdForInvestor = await _context.InvestorSector
                 .Where(x => x.InvestorId == reservation.InvestorId && x.Name == reservation.Topic)
                 .Select(x => x.Id)
