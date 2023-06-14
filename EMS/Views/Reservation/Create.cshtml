@@ -70,6 +70,7 @@
 
             $("#topicSelect").change(function () {
                 console.log("ffffffffffffffffffffff")
+                $("#timeSlot").empty()
                 $("#timeSlot").prop('disabled', false);
                 $.ajax({
                     type: 'POST',
@@ -82,7 +83,7 @@
                         $.each(times, function (i, time) {
                             console.log("ffffffffffffffffffffff", i)
                             console.log("ffffffffffffffffffffff", time)
-                            $("#timeSlot").append('<option value="' + time.id + '">' + time.startTime + '</option>')
+                            $("#timeSlot").append('<option value="' + time.startTime + '">' + time.startTime + '</option>')
                         });
                     },
                     error: function (ex) {
@@ -104,6 +105,7 @@
                     data: { id: $("#investorSelect").val() },
                     success: function (topics) {
                         console.log(topics)
+                        $("#topicSelect").html("")
                         $.each(topics, function (i, topic) {
                             $("#topicSelect").append('<option value="' + topic.id + '">' + topic.name + '</option>')
                         });

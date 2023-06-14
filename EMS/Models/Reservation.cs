@@ -42,12 +42,12 @@ namespace EMS.Models
         [Required]
         [DataType(DataType.Time)]
         [Display(Name = "Available Preferred Times")]
-        public DateTime StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
 
-        public DateTime EndTime
+        public TimeSpan EndTime
         {
-            get { return StartTime.AddHours(1); }
-            set { StartTime = value.AddHours(-1); }
+            get { return StartTime.Add(new TimeSpan(1, 0, 0)); }
+            set { StartTime = value.Add(new TimeSpan(-1, 0, 0)); }
         }
 
         private bool isDone;
@@ -55,7 +55,7 @@ namespace EMS.Models
         {
             get
             {
-                if (DateTime.Now >= EndTime) // Check if current time is greater than or equal to EndTime
+                if (DateTime.Now.TimeOfDay >= EndTime) // Check if current time is greater than or equal to EndTime
                     isDone = true;
                 return isDone;
             }

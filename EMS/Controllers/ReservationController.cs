@@ -51,7 +51,7 @@ namespace EMS.Controllers
 
             ViewData["Topic"] = new SelectList(_context.InvestorSector, "Id", "Name", "Select Topic");
             ViewBag.Topics = _context.InvestorSector.ToArray();
-            ViewData["TimeSlots"] = new SelectList(_context.InvestorTimeSlot, "Id", "StartTime");
+            ViewBag.TimeSlots = new SelectList(_context.InvestorTimeSlot, "StartTime", "StartTime");
             ViewData["ConferenceRoomId"] = new SelectList(_context.ConferenceRoom, "Id", "number");
             ViewData["InvestorId"] = new SelectList(_context.Investor, "Id", "Name","Select Investor");
             ViewData["PresenterId"] = new SelectList(_context.Presenter, "Id", "Name");
@@ -150,32 +150,37 @@ namespace EMS.Controllers
             var investor = await _context.Investor.FindAsync(reservation.InvestorId);
             var test = reservation;
             var t = await _context.InvestorSector.ToListAsync();
+            var topic = _context.InvestorSector.Find(Convert.ToInt32(reservation.Topic));
             var sectorIdForInvestor = await _context.InvestorSector
-                .Where(x => x.InvestorId == reservation.InvestorId && x.Name == reservation.Topic)
+                .Where(x => x.InvestorId == reservation.InvestorId && x.Id == int.Parse(reservation.Topic))
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
 
 
             var investorTimeSlot = await _context.InvestorTimeSlot
-                .FirstOrDefaultAsync(y => y.InvestorSectorId == sectorIdForInvestor && y.StartTime == reservation.StartTime.TimeOfDay);
+                .Where(y => y.InvestorSectorId == topic.Id && y.StartTime == reservation.StartTime)
+                .FirstOrDefaultAsync();
 
+            investorTimeSlot.Occupied = true;
+            _context.Update(investorTimeSlot);
 
+                
             if (investorTimeSlot != null)
             {
-                investorTimeSlot.Occupied = true;
+                investorTimeSlot.Occupied= true;
                 _context.Entry(investorTimeSlot).State = EntityState.Modified;
             }
 
             // updating the presenter occupied
             var presenter = await _context.Presenter.FindAsync(reservation.PresenterId);
             var sectorIdForPresenter = await _context.PresenterSector
-                .Where(x => x.PresenterId == reservation.PresenterId && x.Name == reservation.Topic)
+                .Where(x => x.PresenterId == reservation.PresenterId && x.Name == topic.Name)
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
 
 
             var presenterTimeSlot = await _context.PresenterTimeSlot
-                .FirstOrDefaultAsync(y => y.PresenterSectorId == sectorIdForPresenter && y.StartTime == reservation.StartTime.TimeOfDay);
+                .FirstOrDefaultAsync(y => y.PresenterSectorId == sectorIdForPresenter && y.StartTime == reservation.StartTime);
 
 
             if (presenterTimeSlot != null)
@@ -187,7 +192,7 @@ namespace EMS.Controllers
 
             // updating the Room occupied
             var roomTime = await _context.RoomTimeSlot
-                .FirstOrDefaultAsync(y => y.ConferenceRoomId == reservation.ConferenceRoomId && y.StartTime == reservation.StartTime.TimeOfDay);
+                .FirstOrDefaultAsync(y => y.ConferenceRoomId == reservation.ConferenceRoomId && y.StartTime == reservation.StartTime);
 
 
             if (roomTime != null)
