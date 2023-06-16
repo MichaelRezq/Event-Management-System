@@ -7,7 +7,7 @@ To install and run the EMS web application, follow these steps:
 
 Clone the repository from GitHub: [https://github.com/MichaelRezq/Event-Management-System/edit/NewStyling]
 Install [Asp.Net Core MVC 6]
-Set up the database by executing the provided SQL scripts.
+Set up the database by 
 Configure the application settings, including the database connection string, in the appsettings.json file.
 Build and run the application.
 Usage
